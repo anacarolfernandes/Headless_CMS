@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap');
+
+// 1. Set Global Font Variables
+$font-family-base: 'Mulish', sans-serif !default;
+$body-bg: #f8f9fc; // Background color
+
+// 2. Import Bootstrap functions first
+@import "../../node_modules/bootstrap/scss/functions";
+$warning: #FEC400;
+$success:#29CC97;
+
+
+// 3. Override Bootstrap variables **BEFORE importing Bootstrap**
+$primary: #4c6ef5;
+$secondary: #F0F1F7;
+
+
+// 4. Import Bootstrap SCSS (AFTER variable overrides)
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+body {
+  background-color: $body-bg;
+  font-family: $font-family-base;
+}
+body, h1, h2, h3, h4, h5, h6, p, span, div, a, label, button, input {
+  font-family: 'Mulish', sans-serif !important;
+}
+
+.info-card, .task-item, .ticket-item, .card-title {
+  font-family: 'Mulish', sans-serif !important;
+}
+
+// Variables
+$sidebar-width: 275px;
+$sidebar-collapsed-width: 60px;
+$sidebar-bg: #363740;
+$sidebar-text: #a4a6b3;
+$sidebar-active-bg: #3e4049;
+$sidebar-active-border: #dde2ff;
+$sidebar-active-text: #ffffff;
+
+// Sidebar Styles
+#sidebar {
+  height: 100vh;
+  width: $sidebar-width;
+  background-color: $sidebar-bg;
+  padding: 60px 0px 20px 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 1050;
+  transition: width 0.3s ease, transform 0.3s ease;
+
+  h4 {
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 4rem;
+    
+  }
+  .sidebar-logo {
+    width: 46px;  // or any size you want
+    height: 46px; // if it's a square logo
+    object-fit: contain;
+    padding-right: 10px;
+  }
+  .nav {
+    .nav-item {
+      .nav-link {
+        color: $sidebar-text;
+        padding: 0.75rem 1.25rem;
+        display: grid;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        transition: background 0.3s, color 0.3s;
+        white-space: nowrap;
+        grid-template-columns: 30px auto;
+        gap: 20px;
+
+
+        i {
+          font-size: 1rem;
+          margin-right: 12px;
+          color: $sidebar-text;
+          text-align: center;  
+        }
+
+        .nav-text {
+          display: inline;
+        }
+
+        &:hover {
+          background-color: $sidebar-active-bg;
+          color: $sidebar-active-text;
+          i { color: $sidebar-active-text; }
+        }
+
+        &.active {
+          background-color: $sidebar-active-bg;
+          color: $sidebar-active-text;
+          font-weight: 600;
+          position: relative;
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: $sidebar-active-border;
+          }
+
+          i { color: $sidebar-active-text; }
+        }
+      }
+    }
+  }
+}
+
+// Mobile Responsive Adjustments
+@media (max-width: 768px) {
+  // Sidebar defaults to collapsed width
+  #sidebar {
+    width: $sidebar-collapsed-width;
+    overflow-x: hidden;
+  }
+  // Hide the header (Dashboard Kit) when collapsed
+  #sidebar:not(.open) h4 {
+    display: none;
+  }
+   // Sidebar overlay for mobile
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    }
+  #sidebar-overlay.show {
+    display: block;
+  }
+  // Main content on mobile (no left margin)
+  #main-content {
+    margin-left: 50px;
+    padding: 1rem;
+  }
+  #sidebar .nav-link {
+    justify-content: center;
+  }
+  #sidebar .nav-link .nav-text {
+    display: none !important;
+  }
+}
+
+
+// Desktop: Main content is pushed right by the sidebar width
+@media (min-width: 768px) {
+  #main-content {
+    margin-left: $sidebar-width;
+    padding: 2rem;
+  }
+}
+
+// Global Styles
+body {
+  background-color: #f7f8fc;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.top-nav {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem; // space between elements
+    @media (max-width: 768px) {
+      gap: 0.75rem; // smaller gap on mobile
+    }
+
+    // Search icon
+    .search-icon {
+      font-size: 1.1rem;
+      color: #9fa2b4;
+      cursor: pointer;
+      position: relative;
+      &:hover {
+        color: #4c6ef5; // hover color if desired
+      }
+    }
+
+    // Notification icon container
+    .notification-icon {
+      position: relative; // so the dot can be absolutely positioned
+      i {
+        font-size: 1.1rem;
+        color: #9fa2b4;
+        cursor: pointer;
+        &:hover {
+          color: #4c6ef5;
+        }
+      }
+      // The notification dot
+      .notify-dot {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        width: 8px;
+        height: 8px;
+        background-color: #4c6ef5; // dot color
+        border-radius: 50%;
+        border: 2px solid #fff; 
+      }
+    }
+
+    // Optional vertical divider
+    .vertical-divider {
+      width: 1px;
+      height: 24px;
+      background-color: #e0e0e0;
+    }
+
+    // Avatar
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #ccc;
+    }
+  }
+}
+.g-3, .gx-3 {
+  --bs-gutter-x: 2rem;
+}
+
+// Stats Cards
+.stats-card {
+  border: 2px solid transparent; // Default border
+  border-radius: 15px;
+  background-color: #fff;
+  text-align: center;
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  .stats-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #9fa2b4; // Light gray for text
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .stats-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1f1f1f; // Dark text by default
+    transition: color 0.3s ease-in-out;
+  }
+
+  &:hover {
+    border-color: #2f54eb; // Blue border on hover
+    box-shadow: 0 4px 8px rgba(47, 84, 235, 0.2);
+    .stats-label {
+      color: #2f54eb; // Blue text on hover
+    }
+    .stats-value {
+      color: #2f54eb; // Bold blue number on hover
+    }
+  }
+
+  &.active {
+    border-color: #2f54eb; // Active state blue border
+    .stats-label {
+      color: #2f54eb;
+    }
+    .stats-value {
+      color: #2f54eb;
+    }
+  }
+}
+
+// Chart Card
+.chart-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 0rem;
+  font-family: 'Mulish', sans-serif;
+  
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .chart-legend {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .legend-item {
+    font-size: 0.875rem;
+    color: #9fa2b4;
+    display: flex;
+    align-items: center;
+  }
+  
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .today {
+    background-color: rgba(47, 84, 235, 1);
+  }
+  
+  .yesterday {
+    background-color: rgba(47, 84, 235, 0.3);
+  }
+  .chart-column {
+    padding: 1rem;  // Adjust padding as needed
+  }
+  .chart-container {
+    height: 100%;
+    position: relative;
+    padding: 1rem;  // Adjust padding as needed
+  }
+  .trend-data {
+    padding: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+    .data-item {
+      margin-bottom: 1rem;
+      text-align: center;
+      .data-label {
+        display: block;
+        font-size: 0.875rem;
+        color: #9fa2b4;
+        margin-bottom: 0.25rem;
+      }
+      .data-value {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f1f1f;
+      }
+    }
+  }
+}
+.data-column {
+  border-left: 1px solid #e0e0e0; // vertical bar
+  padding-left: 0px;            // some spacing so text doesn't touch the bar
+}
+
+// Info Cards (Tickets & Tasks)
+.info-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1.5rem; // Increased for better spacing
+  height: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); // Soft shadow
+
+  .card-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1f1f1f;
+    text-transform: capitalize;
+  }
+
+  p.text-muted {
+    color: #9fa2b4 !important;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .ticket-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; // Ensures text and numbers align properly
+    padding: 1rem 0; // More vertical space
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    span:last-child {
+      color: #9fa2b4;
+      font-weight: 600;
+    }
+  }
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  // Ensure checkboxes align properly
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px; // Space between checkbox and text
+  }
+
+  .form-check-input {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #d1d1d1;
+    cursor: pointer;
+
+    &:checked {
+      background-color: #2f54eb;
+      border-color: #2f54eb;
+    }
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+}
+
+#cardSpace, #cardSpace2 {
+  padding-top: 50px; // Adds space above "Create new task"
+}
+
+.card-body {
+  padding: 0 0 0 0;
+}
+
+#fontSizeChange {
+  font-size: small;
+}

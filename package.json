@@ -1,0 +1,22 @@
+{
+  "name": "bootstrap",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "lite-server --baseDir=\"public\"",
+    "watch": "sass --watch src/scss/style.scss:public/assets/css/style.css",
+    "start": "concurrently \"npm run watch\" \"npm run dev\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "all": "^0.0.0",
+    "bootstrap": "^5.3.3",
+    "sass": "^1.86.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "lite-server": "^2.6.1"
+  }
+}
